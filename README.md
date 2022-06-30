@@ -1,4 +1,4 @@
-<h1 align="center">Google-Capstone-Project
+<h1 align="center">Google-Capstone-Project</h1>
 <h1 align="center">Case Study: How Does a Bike-Share Navigate Speedy Success?</h1>
 <h3 align="left">Introduction:</h3>
 <h4 align="left">Cyclistic, it is a bike-share company in Chicago. In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime.</h4>
