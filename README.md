@@ -79,4 +79,10 @@ Cyclists user data is available from the month of January 2020 to June 2022. The
 <a href="https://divvy-tripdata.s3.amazonaws.com/index.html">click here.</a>
    This data has been made publicly available via license by Motivate International Inc. and the city of Chicago. All user’s personal data has been scrubbed for privacy.
    
-   
+ <h3 align="left">Outcome:</h3>
+ <h4 align="left">
+● The warmer months of Chicago (Jun-Aug), experience an spike in the casual users. Their participation exceeded that of the long term members.<br>
+● To further that the Casual demographic spent on average a lot longer time per ride than their long-term counter-parts.<br>
+● The days of the week also further shows that causal riders prefer to use the service during the weekends as their usage peaked then. The long term members conversly utilised the service more-so throughout the typical work week i.e (Monday- friday)<br>
+● Long term riders tended to stick more so to classic bikes as opposed to the docked or electric bikes.<br></h4>
+  
