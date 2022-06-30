@@ -1,0 +1,98 @@
+#IMPORT LIBRARIES
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(dplyr)
+library(ggplot2)
+
+#IMPORT DATASETS
+Jan_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202101-divvy-tripdata.csv")
+Feb_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202102-divvy-tripdata.csv")
+Mar_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202103-divvy-tripdata.csv")
+Apr_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202104-divvy-tripdata.csv")
+May_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202105-divvy-tripdata.csv")
+Jun_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202106-divvy-tripdata.csv")
+Jul_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202107-divvy-tripdata.csv")
+Aug_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202108-divvy-tripdata.csv")
+Sep_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202109-divvy-tripdata.csv")
+Oct_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202110-divvy-tripdata.csv")
+Nov_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202111-divvy-tripdata.csv")
+Dec_Trip21 <- read.csv("C:/Users/DELL/Documents/Capstone 1/202112-divvy-tripdata.csv")
+
+Total_Trip21 <- rbind(Jan_Trip21, Feb_Trip21, Mar_Trip21, Apr_Trip21, May_Trip21, Jun_Trip21, Jul_Trip21, Aug_Trip21, Sep_Trip21, Oct_Trip21, Nov_Trip21, Dec_Trip21)
+
+View(Total_Trip21)
+
+Total_Trip21 <- Total_Trip21 %>%  
+  select(-c(start_lat, start_lng, end_lat, end_lng, start_station_id, end_station_id, end_station_name))
+
+#DATASET DETAILS
+colnames(Total_Trip21)  #List of column names
+nrow(Total_Trip21)  #How many rows are in data frame?
+dim(Total_Trip21)  #Dimensions of the data frame?
+head(Total_Trip21, 5)  #See the first 6 rows of data frame.  Also tail(all_trips)
+tail(Total_Trip21, 5)
+str(Total_Trip21)  #See list of columns and data types (numeric, character, etc)
+summary(Total_Trip21)
+
+#ADDITIONAL DATASET COLUMNS 
+Total_Trip21$date <- as.Date(Total_Trip21$started_at) #The default format is yyyy-mm-dd
+Total_Trip21$month <- format(as.Date(Total_Trip21$date), "%m")
+Total_Trip21$day <- format(as.Date(Total_Trip21$date), "%d")
+Total_Trip21$year <- format(as.Date(Total_Trip21$date), "%Y")
+Total_Trip21$day_of_week <- format(as.Date(Total_Trip21$date), "%A")
+Total_Trip21$time <- format(Total_Trip21$started_at, format= "%H:%M")
+Total_Trip21$time <- as.POSIXct(Total_Trip21$time, format= "%H:%M")
+
+Total_Trip21$ride_length <- (as.double(difftime(Total_Trip21$ended_at, Total_Trip21$started_at))) /60
+
+str(Total_Trip21)
+
+Total_Trip21<- Total_Trip21[!(Total_Trip21$start_station_name == "HQ QR" | Total_Trip21$ride_length<0),]
+
+summary(Total_Trip21$ride_length)
+
+#DATA ANALYSIS
+aggregate(Total_Trip21$ride_length ~ Total_Trip21$member_casual, FUN = mean)
+aggregate(Total_Trip21$ride_length ~ Total_Trip21$member_casual, FUN = median)
+aggregate(Total_Trip21$ride_length ~ Total_Trip21$member_casual, FUN = max)
+aggregate(Total_Trip21$ride_length ~ Total_Trip21$member_casual, FUN = min)
+
+Total_Trip21$day_of_week <- ordered(Total_Trip21$day_of_week, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+
+Total_Trip21 %>% 
+  mutate(day_of_week = wday(started_at, label = TRUE)) %>%  #creates weekday field using wday()
+  group_by(member_casual, day_of_week ) %>%  #groups by usertype and weekday
+  summarise(number_of_rides = n())
+
+#DATA VISUALIZATION
+Total_Trip21$day_of_week  <- format(as.Date(Total_Trip21$date), "%A")
+Total_Trip21 %>%                              
+  group_by(member_casual, day_of_week) %>% 
+  summarise(number_of_rides = n()) %>% 
+  arrange(member_casual, day_of_week) %>%
+  ggplot(aes(x = day_of_week, y = number_of_rides, fill = member_casual)) + geom_col (position ="dodge")  + 
+  labs(x='Day of The Week', y='Total Number of Rides', title='Rides per Day of Week', fill = 'Type of Membership') + 
+  scale_y_continuous(breaks = c(250000, 400000, 550000), labels = c("250K", "400K", "550K"))
+
+Total_Trip21 %>%   
+  group_by(member_casual, month) %>%  
+  summarise(total_rides = n(),`average_duration_(mins)` = mean(ride_length)) %>% 
+  arrange(member_casual) %>% 
+  ggplot(aes(x=month, y=total_rides, fill = member_casual)) + geom_col(position = "dodge") + 
+  labs(x= "Month", y= "Total Number of Rides", title = "Rides per Month", fill = "Type of Membership") + 
+  scale_y_continuous(breaks = c(100000, 200000, 300000, 400000), labels = c("100K", "200K", "300K", "400K")) + theme(axis.text.x = element_text(angle = 45))
+
+Total_Trip21 %>%   
+  ggplot(aes(x = rideable_type, fill = member_casual)) + geom_bar(position = "dodge") + 
+  labs(x= 'Type of Bike', y='Number of Rentals', title='Which bike works the most', fill = 'Type of Membership') +
+  scale_y_continuous(breaks = c(500000, 1000000, 1500000), labels = c("500K", "1Mil", "1.5Mil"))
+
+Total_Trip21 %>%        
+  mutate(day_of_week = wday(started_at, label = TRUE)) %>%  
+  group_by(member_casual, day_of_week) %>% 
+  summarise(number_of_rides = n(), average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, day_of_week)  %>% 
+  ggplot(aes(x = day_of_week, y = average_duration, fill = member_casual)) +
+  geom_col(position = "dodge") + labs(x='Days of the Week', y='Average duration - Hrs', title='Average ride time per week', fill='Type of Membership')
+
