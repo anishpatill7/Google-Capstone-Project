@@ -81,8 +81,21 @@ Cyclists user data is available from the month of January 2020 to June 2022. The
    
  <h3 align="left">Outcome:</h3>
  <h4 align="left">
-● The warmer months of Chicago (Jun-Aug), experience an spike in the casual users. Their participation exceeded that of the long term members.<br>
-● To further that the Casual demographic spent on average a lot longer time per ride than their long-term counter-parts.<br>
-● The days of the week also further shows that causal riders prefer to use the service during the weekends as their usage peaked then. The long term members conversly utilised the service more-so throughout the typical work week i.e (Monday- friday)<br>
-● Long term riders tended to stick more so to classic bikes as opposed to the docked or electric bikes.<br></h4>
+● The warmer months of Chicago (Jun-Aug), experience an spike in the Casual users. The number of casual user also exceed the yearly members.<a href="Total Rides per Month.png">click here.</a><br>
+● The days of the week also further shows that causal riders prefer to use the service during the weekends as their usage peaked then. The long term members conversly utilised the service more-so throughout the typical work week i.e (Monday- friday)<a href="Total Rides per Week.png">click here.</a><br>
+● Moreover, the Casual demographic spent on average a lot longer time per ride than their counter part of year members. <a href="Time Spend by Riders.png">click here.</a><br>
+● Long term riders tended to stick more so to classic bikes as opposed to the docked or electric bikes. <a href="Types of Bikes Breakdown.png">click here.</a><br></h4>
   
+<h3 align="left">Inputs:</h3>
+<h4 align="left">
+● Introducing plans thats may be more appealing to casuals for the summer months. This marketing should be done during the winter months in preperation.<br>
+● The casual users might be more interested in a memebrship option that allows for per-use balance card. Alternatively, the existing payment structure may be altered in order to make single-use more costly to the casual riders as well as lowering the long-term membership rate.<br>
+● Membership rates specifically for the warmer months as well as for those who only ride on the weekends would assist in targeting the casual riders more specifically.<br></h4>
+ 
+<h3 align="left">Missing Data to Improve Analysis:</h3>
+<h4 align="left">
+● Age and gender: This would add a dynamic to whether or not customers are being targeted across demograpic lines. Is the existing marketing effective? Is there potential for more inclusive targeting?<br>
+● Pricing structure: THe actual pricing plans data was not provided and would give further insight to which plans are the most popular and by (how much) when comparing them. It would also be effective to understanding the spending behaviour of casual user.<br>
+● Household income data: Pinpointing the average income of the long-term memebrs as compared to the casual counter-parts would allow for further analysis of what is the typical economic standing of each type of member, as well as providing the ability to analysis overall price sensitivity between the two different membership types.<br></h4>
+  
+<h4 align="center">Thank You!</h4>
